@@ -1,0 +1,231 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:n="sap.ndc">
+    <f:Form editable="true">
+        <f:layout>
+            <f:ResponsiveGridLayout
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"/>
+        </f:layout>
+        <f:formContainers>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>productionOrder}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/ProductionOrder}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>transportationType}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/TransportationType}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>rackNo}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/RackNo}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>wbs}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/WBS}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>material}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/Material}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>moveToSloc}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/StorageLocation}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>rackId}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/RackID}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>vendor}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/Vendor}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>vendorName}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/VendorName}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>component}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/Component}"
+                                    maxLength="40"
+                                    type="Text"
+                                    required="true"
+                                    submit="onGetComponentData">
+                                <layoutData>
+                                    <l:GridData span="XL3 L3 M3 S8"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>component}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:fields>
+                            <Button text="{i18n>scanComponent}"
+                                    press="onScanComponent">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S4"/>
+                                </layoutData>
+                            </Button>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>componentName}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/ComponentName}">
+                                <layoutData>
+                                    <l:GridData span="XL3 L3 M3 S8"/>
+                                </layoutData>
+                            </Text>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:fields>
+                            <Button text="{=${input>/Reject}? ${i18n>pass} : ${i18n>reject}}"
+                                    type="{=${input>/Reject}? 'Accept' : 'Reject'}"                                    
+                                    press="onReject">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S4"/>
+                                </layoutData>
+                            </Button>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement visible="{=${input>/Reject}? true : false}">
+                        <f:label>
+                            <Label  text="{i18n>rejectSloc}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/RejectStorageLocation}"
+                                    showValueHelp="true"
+                                    valueHelpRequest="onRejectSLocSearch"
+                                    maxLength="4"
+                                    type="Text"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL3 L3 M3 S8"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="{=${input>/Reject}? 'true' : 'false'}"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>rejectSloc}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>count}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/Count}"
+                                    type="Number"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL1 L1 M1 S12"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>count}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{ parts: [ { path : 'input>/StandardPacking' }, 
+                                                     { path : 'input>/ComponentList' } ],
+                                            formatter: '.formatter.formatStandardPacking' }">
+                            </Text>
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+            </f:FormContainer>
+        </f:formContainers>
+    </f:Form>
+</core:FragmentDefinition>

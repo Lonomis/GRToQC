@@ -1,0 +1,226 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:n="sap.ndc">
+    <f:Form editable="true">
+        <f:layout>
+            <f:ResponsiveGridLayout
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"/>
+        </f:layout>
+        <f:formContainers>
+            <f:FormContainer>
+                <f:formElements>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>productionOrder}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/ProductionOrder}" 
+                                    maxLength="12"
+                                    submit="onGetData"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="requiredOrder"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>productionOrder}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:fields>
+                            <Button text="{i18n>scan}"
+                                    press="onScanOrder"
+									visible="{= ${barcode>/available}}">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                </layoutData>
+                            </Button>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>transportationType}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/TransportationType}"
+                                    maxLength="4"
+                                    submit="onGetData"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S12"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="requiredOrder"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>transportationType}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>rackNo}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/RackNo}"
+                                    maxLength="2"
+                                    submit="onGetData"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S12"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="requiredOrder"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>rackNo}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>wbs}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/WBS}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>material}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/Material}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>moveToSloc}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/StorageLocation}"
+                                    showValueHelp="true"
+                                    valueHelpRequest="onSLocSearch"
+                                    maxLength="4"
+                                    type="Text"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>moveToSloc}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:fields>
+                            <Button text="{i18n>scanSloc}"
+                                    press="onScanSloc"
+									visible="{= ${barcode>/available}}">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                </layoutData>
+                            </Button>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>rackId}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/RackID}"
+                                    maxLength="5"
+                                    type="Text"
+                                    required="true">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S12"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="true"
+                                                     writeToDom="true"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>rackId}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>vendor}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/Vendor}"
+                                    submit="onGetVendorData"
+                                    maxLength="10">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S12"/>
+                                </layoutData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>vendorName}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/VendorName}"/>
+                        </f:fields>
+                    </f:FormElement>
+                </f:formElements>
+            </f:FormContainer>
+        </f:formContainers>
+    </f:Form>
+</core:FragmentDefinition>
