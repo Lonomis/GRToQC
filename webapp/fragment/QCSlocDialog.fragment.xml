@@ -4,13 +4,13 @@
     <SelectDialog
         title="{i18n>storageLocationDialogTitle}"
         class="sapUiPopupWithPadding"
-        items="{qcsloc>/SlocList}"
+        items="{sloc>/SlocList}"
         search="onSearch"
         confirm="onSlocChoose">
         <items>
             <StandardListItem
-                title="{qcsloc>StorageLocation}"
-                description="{qcsloc>StorageLocationName}"/>
+                title="{sloc>StorageLocation}"
+                description="{sloc>StorageLocationName}"/>
         </items>
     </SelectDialog>
 </core:FragmentDefinition>

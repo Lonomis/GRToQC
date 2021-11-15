@@ -69,6 +69,9 @@ sap.ui.define([
                 //Instantiate Storage Location Model
                 this.SlocModel = new SlocModel(this.getView().getModel(), this.getView(), "sloc");
 
+                //Instantiate QC Storage Location Model
+                this.QCSlocModel = new SlocModel(this.getView().getModel(), this.getView(), "qcsloc");
+
                 //Instantiate ScreenManager
                 this.ScreenManager = new ScreenManager(this.getView(), this.getView().byId("contentVBox"), "fragment", this);
                 await this.ScreenManager.loadFragment("Init");
@@ -79,6 +82,9 @@ sap.ui.define([
 
                 //Instantiate Sloc Dialog
                 this.SlocDialog = new SlocDialog(this.InputModel, this.SlocModel);
+
+                //Instantiate QC Sloc Dialog
+                this.QCSlocDialog = new SlocDialog(this.InputModel, this.QCSlocModel);
 
                 //Instantiate Message Popover
                 this.MessagePopover = new MessagePopover(this.getView());
@@ -95,6 +101,10 @@ sap.ui.define([
 
                 switch (this.ScreenManager.getActiveFragment()){
                     case "Init107" :
+                        this.InputModel.clearData();
+                        this.ScreenManager.loadFragment("Init");
+                        break;
+                    case "Init114" :
                         this.InputModel.clearData();
                         this.ScreenManager.loadFragment("Init");
                         break;
@@ -170,13 +180,12 @@ sap.ui.define([
                 MainControllerHelper.getMainOrderData(this.OrderModel, this.InputModel, this.ScreenManager);
             },
 
-            onGetOrderData: async function(){
+            onGetOrderDataNCR: async function(){
                 MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
-                
+
                 try {
                     BusyIndicator.show(0);
-                    MainControllerHelper.validateOrder(this.InputModel, this.MessagePopover);
-                    await MainControllerHelper.getOrderData(this.OrderModel, this.InputModel, this.ScreenManager);
+                    
                     BusyIndicator.hide();
                 } catch (oError) {
                     BusyIndicator.hide();
@@ -207,7 +216,12 @@ sap.ui.define([
 
             onSlocSearch: function(){
                 MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
-                MainControllerHelper.openSlocSearchDialog(this.SlocDialog, this.getView());
+                MainControllerHelper.openSlocSearchDialog(this.SlocDialog, this.getView(), "REJECT");
+            },
+
+            onSlocSearchQC: function(){
+                MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
+                MainControllerHelper.openSlocSearchDialog(this.QCSlocDialog, this.getView(), "QC");
             },
 
             onDisplayScannedComponent: function(){
@@ -225,6 +239,22 @@ sap.ui.define([
                     this.ScreenManager.loadFragment("Init");                    
                     BusyIndicator.hide();
                 } catch(oError) {
+                    BusyIndicator.hide();
+                }
+            },
+
+            onSave114: async function(){
+                MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
+
+                try{
+                    BusyIndicator.show(0);
+                    await this.OrderModel.postGoodsReceiptNCR(this.InputModel, this.MessageStrip);
+                    this.InputModel.clearData();
+                    this.ScreenManager.loadFragment("Init");
+                    BusyIndicator.hide();
+                } catch(oError) {
+                    this.InputModel.clearData();
+                    this.ScreenManager.loadFragment("Init");
                     BusyIndicator.hide();
                 }
             }

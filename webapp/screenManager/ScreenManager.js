@@ -80,6 +80,7 @@ sap.ui.define([
                     this.loadFragment("Init107");
                     break;
                 case 'GUIXT114' :
+                    this.loadFragment("Init114");
                     break;
             }
         }

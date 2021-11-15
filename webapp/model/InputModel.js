@@ -31,6 +31,8 @@ sap.ui.define([
                 MainProductionOrder     :   "",
                 MainStorageLocation     :   "",
                 MaximumQty              :   0,
+                Quantity                :   0,
+                OrderQuantity           :   0,
                 ComponentList           :   []
             }
         },
@@ -57,6 +59,7 @@ sap.ui.define([
             var oData = this.getInitialData();
 
             oData.ProductionOrder           =   oInputdata.ProductionOrder;
+            oData.OrderType                 =   oInputdata.OrderType;
             oData.Mode                      =   oInputdata.Mode;
             oData.TransportationType        =   oInputdata.TransportationType;
             oData.RackNo                    =   oInputdata.RackNo;
@@ -74,6 +77,8 @@ sap.ui.define([
             oData.MainStorageLocation       =   oInputdata.MainStorageLocation;
             oData.MaximumQty                =   oInputdata.MaximumQty;
             oData.ComponentList             =   oInputdata.ComponentList;
+            oData.Quantity                  =   oInputdata.Quantity;
+            oData.OrderQuantity             =   oInputdata.OrderQuantity;
 
             this._oModel.setData(oData);
         },
@@ -97,6 +102,7 @@ sap.ui.define([
             var oData   =   this.getData();
 
             oData.ProductionOrder       =   "";
+            oData.OrderType             =   "";
             oData.Mode                  =   "";
             oData.Material              =   "";
             oData.MaterialName          =   "";
@@ -106,6 +112,8 @@ sap.ui.define([
             oData.Count                 =   0;
             oData.Reject                =   false;
             oData.Barcode               =   "";
+            oData.Quantity              =   0;
+            oData.OrderQuantity         =   0;
 
             this.setData(oData);
         },
@@ -122,6 +130,7 @@ sap.ui.define([
             var oInputData = this.getData();
 
             oInputData.ProductionOrder          =   oResultData.OrderNo;
+            oInputData.OrderType                =   oResultData.OrderType;
             oInputData.Mode                     =   oResultData.Mode;
             oInputData.Material			        =	oResultData.Material;
             oInputData.MaterialName             =   oResultData.MaterialName;
@@ -133,7 +142,8 @@ sap.ui.define([
             oInputData.MainProductionOrder      =   oResultData.OrderNo;
             oInputData.MainStorageLocation      =   oResultData.StorageLocation; 
             oInputData.MaximumQty               =   oResultData.Qty;
-       
+            oInputData.Quantity                 =   oResultData.Qty;
+            oInputData.OrderQuantity            =   oResultData.OrderQty;
             this.setData(oInputData);
         },
 
@@ -160,7 +170,8 @@ sap.ui.define([
         setOrderFromBarcode: function(sBarcodeText) {
             var oInputData  =   this.getData();
 
-            oInputData.ProductionOrder  =   (sBarcodeText.length >= 12 ? sBarcodeText.substring(4,16) : sBarcodeText);
+            oInputData.ProductionOrder  =   (sBarcodeText.length >= 4  ? sBarcodeText.substring(4,16) : sBarcodeText);
+            oInputData.Count            =   parseInt((sBarcodeText.length >= 59 ? sBarcodeText.substring(58,61) : sBarcodeText));
             oInputData.Barcode          =   sBarcodeText;
 
             this.setData(oInputData);

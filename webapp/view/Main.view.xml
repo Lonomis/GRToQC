@@ -10,7 +10,8 @@
 			<pages>
 				<Page id="page" title="{i18n>title}"
                       showNavButton="{=${fragment>/activeFragment} === 'Init107'
-                                    ||${fragment>/activeFragment} === 'ComponentList107'}"
+                                    ||${fragment>/activeFragment} === 'ComponentList107'
+                                    ||${fragment>/activeFragment} === 'Init114'}"
                       navButtonPress="onBack"  >
 					<content>
 						<VBox	id="contentVBox"/>
@@ -47,6 +48,11 @@
                                     type="Accept"
                                     visible="{=${fragment>/activeFragment} === 'ComponentList107'}"
                                     press="onSave107"/>
+                                <Button
+                                    text="{i18n>save}"
+                                    type="Accept"
+                                    visible="{=${fragment>/activeFragment} === 'Init114'}"
+                                    press="onSave114"/>
 							</content>
 						</OverflowToolbar>
 					</footer>

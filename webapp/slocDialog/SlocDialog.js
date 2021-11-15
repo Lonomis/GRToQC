@@ -12,14 +12,14 @@ sap.ui.define([
             this._slocModel     =   oSlocModel;
         },
 
-        openDialog: async function(oView) {
+        openDialog: async function(oView, sObject) {
             var oInputData  =   this._inputModel.getData();
             var oResult     =   {};
 
             try {
                 BusyIndicator.show(0);
                 if (oInputData.Reject){
-                    oResult = await this._slocModel.buildSlocList("REJECT", oInputData.Plant);
+                    oResult = await this._slocModel.buildSlocList(sObject, oInputData.Plant);
                 } else {
                     oResult = await this._slocModel.buildSlocPCFList(oInputData.ProductionOrder);
                 }

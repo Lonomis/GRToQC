@@ -29,45 +29,24 @@
                                     design="Bold"/>
                         </f:label>
                         <f:fields>
-                            <Input  value="{input>/ProductionOrder}" 
-                                    maxLength="12"
-                                    submit="onGetOrderData"
-                                    required="true">
+                            <Text   text="{input>/ProductionOrder}">
                                 <layoutData>
                                     <l:GridData span="XL2 L2 M2 S6"/>
                                 </layoutData>
-                                <customData>
-                                    <core:CustomData key="required"
-                                                     value="true"
-                                                     writeToDom="true"/>
-                                    <core:CustomData key="name"
-                                                     value="{i18n>productionOrder}"
-                                                     writeToDom="true"/>
-                                    <core:CustomData key="input"
-                                                     value="true"
-                                                     writeToDom="true"/>
-                                </customData>
-                            </Input>
+                            </Text>
                         </f:fields>
                     </f:FormElement>
                     <f:FormElement >
-                        <f:fields>
-                            <Button text="{i18n>scanProdOrder}"
-                                    icon="sap-icon://bar-code"
-                                    press="onScanOrder">
-                                <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
-                                </layoutData>
-                            </Button>
-                        </f:fields>
-                    </f:FormElement>
-                    <f:FormElement>
                         <f:label>
-                            <Label  text="{i18n>material}"
+                            <Label  text="{i18n>orderType}"
                                     design="Bold"/>
                         </f:label>
                         <f:fields>
-                            <Text   text="{input>/Material}"/>
+                            <Text  text="{input>/OrderType}">
+                                <layoutData>
+                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                </layoutData>
+                            </Text>
                         </f:fields>
                     </f:FormElement>
                     <f:FormElement>
@@ -81,6 +60,15 @@
                     </f:FormElement>
                     <f:FormElement>
                         <f:label>
+                            <Label  text="{i18n>material}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/Material}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
                             <Label  text="{i18n>materialName}"
                                     design="Bold"/>
                         </f:label>
@@ -90,34 +78,16 @@
                     </f:FormElement>
                     <f:FormElement>
                         <f:label>
-                            <Label  text="{i18n>count}"
+                            <Label  text="{i18n>qty}"
                                     design="Bold"/>
                         </f:label>
                         <f:fields>
-                            <Input  value="{input>/Count}"
-                                    type="Number"
-                                    required="true"
-                                    submit="onSubmitCount">
-                                <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
-                                </layoutData>
-                                <customData>
-                                    <core:CustomData    key="required"
-                                                        value="true"
-                                                        writeToDom="true"/>
-                                    <core:CustomData    key="name"
-                                                        value="{i18n>count}"
-                                                        writeToDom="true"/>
-                                    <core:CustomData key="input"
-                                                     value="true"
-                                                     writeToDom="true"/>
-                                </customData>
-                            </Input>
+                            <Text   text="{input>/Quantity}"/>
                         </f:fields>
                     </f:FormElement>
                     <f:FormElement>
                         <f:label>
-                            <Label  text="{=${input>/Reject}? ${i18n>rejectSloc} : ${i18n>moveToSloc}}"
+                            <Label  text="{=${i18n>moveToSloc}}"
                                     design="Bold"/>
                         </f:label>
                         <f:fields>
@@ -126,7 +96,7 @@
                                     type="Text"
                                     maxLength="4"
                                     required="true"
-                                    valueHelpRequest="onSlocSearch">
+                                    valueHelpRequest="onSlocSearchQC">
                                 <layoutData>
                                     <l:GridData span="XL2 L2 M2 S6"/>
                                 </layoutData>
@@ -135,7 +105,7 @@
                                                         value="true"
                                                         writeToDom="true"/>
                                     <core:CustomData    key="name"
-                                                        value="{=${input>/Reject}? ${i18n>rejectSloc} : ${i18n>moveToSloc}}"
+                                                        value="{=${i18n>moveToSloc}}"
                                                         writeToDom="true"/>
                                     <core:CustomData    key="input"
                                                         value="true"
@@ -150,31 +120,9 @@
                                     icon="sap-icon://bar-code"
                                     visible="{= ${barcode>/available}}">
                                 <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S3"/>
+                                    <l:GridData span="XL1 L1 M1 S3"/>
                                 </layoutData>
                             </Button>
-                        </f:fields>
-                    </f:FormElement>
-                    <f:FormElement>
-                        <f:fields>
-                            <Button text="{=${input>/Reject}? ${i18n>pass} : ${i18n>reject}}"
-                                    type="{=${input>/Reject}? 'Accept' : 'Reject'}"
-                                    press="onReject">
-                                <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S3"/>
-                                </layoutData>
-                            </Button>
-                        </f:fields>
-                    </f:FormElement>
-                    <f:FormElement>
-                        <f:label>
-                            <Label/>
-                        </f:label>
-                        <f:fields>
-                            <Text   text="{ parts: [ { path : 'input>/ComponentList' }, 
-                                                     { path : 'input>/MaximumQty' } ],
-                                            formatter: '.formatter.formatMaximumQty' }">
-                            </Text>
                         </f:fields>
                     </f:FormElement>
                 </f:formElements>

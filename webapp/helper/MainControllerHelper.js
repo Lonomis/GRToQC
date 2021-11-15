@@ -37,8 +37,8 @@ sap.ui.define([
             }
         },
        
-        openSlocSearchDialog : function(oSlocDialog, oView){
-            oSlocDialog.openDialog(oView);
+        openSlocSearchDialog : function(oSlocDialog, oView, sObject){
+            oSlocDialog.openDialog(oView, sObject);
         },
 
         clearMessages : function(oMessageStrip, oMessagePopover, oInputModel) {

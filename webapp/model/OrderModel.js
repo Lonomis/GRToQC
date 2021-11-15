@@ -182,12 +182,76 @@ sap.ui.define([
             return aToGRItemsFence;
         },
 
+        postGoodsReceiptNCR:    function(oInputModel, oMessageStrip){
+            var that = this;
+            var oDataToBePosted =   this.prepareDataToPostGRNCR(oInputModel);
+
+            return new Promise(function(resolve, reject){
+                that._OrderModel.create("/GoodsReceiptNCRs", oDataToBePosted, {
+                    success : function(oData) {
+                        oMessageStrip.showMessageStrip(that.getPostSuccessMessageNCR(oData.MaterialDocumentNo, oData.MaterialDocumentNoTrans), that.SuccessStatus);
+                        resolve({
+                            status  :   that.SuccessStatus,
+                            details :   oData
+                        })
+                    },
+                    error : function(oError) {
+                        oMessageStrip.showMessageStrip(that.getPostErrorMessage(), that.ErrorStatus);
+                        reject({
+                            status  :   that.ErrorStatus,
+                            details :   oError,
+                            message :   that.getPostErrorMessage()
+                        })
+                    }
+                })
+            })
+        },
+
+        prepareDataToPostGRNCR:  function(oInputModel){
+            var oData = oInputModel.getData();
+
+            return {
+                TransactionId       :   "1",
+                TransactionCode     :   "ZMMO071_114",
+                ProductionOrder     :   oData.ProductionOrder,
+                OrderType           :   oData.OrderType,
+                Material            :   oData.Material,
+                Plant               :   oData.Plant,
+                RackId              :   oData.RackID,
+                WBS                 :   oData.WBS,
+                StorageLocation     :   oData.StorageLocation,
+                Quantity            :   oData.Quantity,
+                OrderQuantity       :   oData.OrderQuantity,
+                Barcode             :   oData.Barcode
+            }
+        },
+
+        getPostSuccessMessageNCR: function(sMaterialDocumentNo, sMaterialDocumentNoTrans) {
+            if (sMaterialDocumentNo){
+                if (sMaterialDocumentNoTrans){
+                    return this._ResourceBundle.getText("post.SuccessNCR", 
+                                                        [sMaterialDocumentNo,
+                                                        sMaterialDocumentNoTrans]);
+                } else {
+                    return this._ResourceBundle.getText("post.SuccessOnlyGR",
+                                                        [sMaterialDocumentNo]);                     
+                }
+            } else {
+                if (sMaterialDocumentNoTrans){
+                    return this._ResourceBundle.getText("post.SuccessOnlyTrans",
+                                                        [sMaterialDocumentNoTrans]);                    
+                } else {
+                    return this._ResourceBundle.getText("post.SuccessNoMatDoc");
+                }
+            }
+        },
+
         getPostSuccessMessage: function(sMaterialDocumentNo) {
             return this._ResourceBundle.getText("post.Success", 
                                                 [sMaterialDocumentNo]);
         },
 
-        getPostErrorMessage: function(oInputData) {
+        getPostErrorMessage: function() {
             return this._ResourceBundle.getText("post.Error");
         },
 
