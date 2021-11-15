@@ -4,12 +4,12 @@ sap.ui.define([
 ], function(Object, ResourceModel){
     "use strict";
 
-    return Object.extend("zmmo071101.model.OrderModel", {
+    return Object.extend("zmmo071107.model.OrderModel", {
         _OrderModel         :   {},
         SuccessStatus       :   "Success",
         ErrorStatus         :   "Error",
         _ResourceBundle:    new ResourceModel({
-            bundleName:         "zmmo071101.i18n.i18n",
+            bundleName:         "zmmo071107.i18n.i18n",
             supportedLocales:   [""],
             fallbackLocales:    ""
         }).getResourceBundle(),
@@ -18,7 +18,44 @@ sap.ui.define([
             this._OrderModel    =   oModel;
         },
 
-        getOrderData: function(oInputModel){
+        getMainOrderData: function(oInputModel){
+            var that = this;
+            var oParameters = this.buildGetOrderQCParameter(oInputModel);
+
+            return new Promise(function(resolve, reject){
+                that._OrderModel.callFunction("/GetOrderQC", {
+                    method          :   "GET",
+                    urlParameters   :   oParameters,
+                    success         :   function(oData) {
+                        oInputModel.setOrderDataQC(oData.GetOrderQC);
+
+                        resolve({
+                            status  :   that.SuccessStatus,
+                            details :   oData.GetOrderQC
+                        })
+                    },
+                    error           :   function(oError) {
+                        reject({
+                            status  :   that.ErrorStatus,
+                            details :   oError
+                        })
+                    } 
+                })
+            });
+        },
+
+        buildGetOrderQCParameter: function(oInputModel){
+            var oInputData = oInputModel.getData();
+
+            return {
+                "OrderNo"               :   ( !oInputData.ProductionOrder ? "" : oInputData.ProductionOrder),
+                "RackNo"                :   "00",
+                "TransportationType"    :   "0",
+                "Flag"                  :   "X"
+            }
+        },
+
+        getSubOrderData: function(oInputModel){
             var that = this;
             var oParameters = this.buildGetOrderParameter(oInputModel);
 
@@ -27,7 +64,7 @@ sap.ui.define([
                     method          :   "GET",
                     urlParameters   :   oParameters,
                     success         :   function(oData) {
-                        oInputModel.setOrderData(oData.GetOrder);
+                        oInputModel.setSubOrderData(oData.GetOrder);
 
                         resolve({
                             status  :   that.SuccessStatus,
@@ -89,12 +126,12 @@ sap.ui.define([
             }
         },
 
-        postGoodsReceipt:    function(oInputModel, oMessageStrip){
+        postGoodsReceiptFence:    function(oInputModel, oMessageStrip){
             var that = this;
-            var oDataToBePosted =   this.prepareDataToBePosted(oInputModel);
+            var oDataToBePosted =   this.prepareDataToPostGRFence(oInputModel);
 
             return new Promise(function(resolve, reject){
-                that._OrderModel.create("/GoodsReceipts", oDataToBePosted, {
+                that._OrderModel.create("/GoodsReceiptFences", oDataToBePosted, {
                     success : function(oData) {
                         oMessageStrip.showMessageStrip(that.getPostSuccessMessage(oData.MaterialDocumentNo), that.SuccessStatus);
                         resolve({
@@ -114,42 +151,35 @@ sap.ui.define([
             })
         },
 
-        prepareDataToBePosted:  function(oInputModel){
+        prepareDataToPostGRFence:  function(oInputModel){
             var oData = oInputModel.getData();
 
             return {
                 TransactionId       :   "1",
-                TransactionCode     :   "ZMMO071_101",
-                ProductionOrder     :   oData.ProductionOrder,
+                TransactionCode     :   "ZMMO071_107",
+                ProductionOrder     :   oData.MainProductionOrder,
                 Plant               :   oData.Plant,
                 RackId              :   oData.RackID,
-                WBS                 :   oData.WBS,
-                StorageLocation     :   oData.StorageLocation,
-                RackNo              :   oData.RackNo,
-                TransportationType  :   oData.TransportationType,
-                Vendor              :   oData.Vendor,
-                ToGRItems           :   this.appendToGRItems(oData.ComponentList)
+                StorageLocation     :   oData.MainStorageLocation,
+                ToGRItemsFence      :   this.appendToGRItemsFence(oData.ComponentList)
             }
         },
 
-        appendToGRItems: function(aComponentList){
-            var aToGRItems    =   [];
+        appendToGRItemsFence: function(aComponentList){
+            var aToGRItemsFence    =   [];
 
             aComponentList.forEach(function(oComponent){
-                aToGRItems.push({
+                aToGRItemsFence.push({
                     TransactionId   :   "1",
-                    ItemNo          :   oComponent.ItemNo,
-                    Item            :   oComponent.Item,
-                    StorageLocation :   oComponent.Sloc,
+                    Item            :   oComponent.Material,
+                    StorageLocation :   oComponent.StorageLocation,
                     Reject          :   ( oComponent.RejectStatus ? "X" : "" ),
-                    Plant           :   oComponent.Plant,
-                    Vendor          :   oComponent.Vendor,
                     Count           :   oComponent.Count.toString(),
-                    Barcode         :   oComponent.Barcode
+                    Barcode         :   ( oComponent.Barcode ? oComponent.Barcode : "" )
                 });
             });
 
-            return aToGRItems;
+            return aToGRItemsFence;
         },
 
         getPostSuccessMessage: function(sMaterialDocumentNo) {

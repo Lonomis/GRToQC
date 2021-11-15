@@ -1,12 +1,12 @@
 sap.ui.define([
     'sap/ui/base/Object',
     'sap/ui/core/Fragment',
-    "zmmo071101/model/FragmentModel"
+    "zmmo071107/model/FragmentModel"
 ], function(Object, Fragment, FragmentModel) {
     'use strict';
-    return Object.extend("zmmo071101.screenManager.ScreenManager", {
+    return Object.extend("zmmo071107.screenManager.ScreenManager", {
         _fixedValue: {
-            sFragmentNameSpace  :   "zmmo071101.fragment."
+            sFragmentNameSpace  :   "zmmo071107.fragment."
         },
         
         _fragments  :   {},
@@ -70,6 +70,18 @@ sap.ui.define([
 
         getActiveFragment: function(){
             return this.FragmentModel.getActiveFragment();
+        },
+
+        openInitScreenPerMode: function(oInputModel){
+            var oInputData = oInputModel.getData();
+
+            switch (oInputData.Mode) {
+                case 'GUIXT107' :
+                    this.loadFragment("Init107");
+                    break;
+                case 'GUIXT114' :
+                    break;
+            }
         }
         
     });

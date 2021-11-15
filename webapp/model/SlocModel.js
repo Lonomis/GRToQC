@@ -4,7 +4,7 @@ sap.ui.define([
 ], function(Object, JSONModel) {
     'use strict';
     
-    return Object.extend("zmmo071101.model.SlocModel", {
+    return Object.extend("zmmo071107.model.SlocModel", {
         _OrderModel         :   "",
         _SlocModel          :   "",
         SuccessStatus       :   "Success",
@@ -36,6 +36,28 @@ sap.ui.define([
                             details :   oError
                         });
                     });
+            });
+        },
+
+        buildSlocPCFList: function(sProductionOrder) {
+            var that    =   this;
+
+            return new Promise(function(resolve, reject){
+                that.getSlocPCFList(sProductionOrder).then(
+                    function(oResult){
+                        that.setSlocData(oResult, that._SlocModel);
+                        resolve({
+                            status  :   that.SuccessStatus,
+                            details :   oResult 
+                        });
+                    },
+                    function(oError){
+                        reject({
+                            status  :   that.ErrorStatus,
+                            details :   oError
+                        });
+                    }
+                );
             });
         },
 
@@ -77,10 +99,40 @@ sap.ui.define([
             })
         },
 
+        getSlocPCFList: function(sProductionOrder){
+            var that = this;
+            var oParameters = this.buildGetSlocPCFParameters(sProductionOrder);
+
+            return new Promise(function(resolve, reject){
+                that._OrderModel.callFunction("/GetPCFSloc", {
+                    method          :   "GET",
+                    urlParameters   :   oParameters,
+                    success         :   function(oData) {
+                        resolve({
+                            status      :   that.SuccessStatus,
+                            details     :   oData
+                        })
+                    },
+                    error           :   function(oError) {
+                        reject({
+                            status      :   that.ErrorStatus,
+                            details     :   oError
+                        })
+                    }
+                })
+            })
+        },
+
         buildGetSlocParameters: function(sObject, sPlant){
             return {
                 "Object" : sObject,
                 "Plant"  : (!sPlant ? "1100" : sPlant)
+            }
+        },
+
+        buildGetSlocPCFParameters: function(sProductionOrder){
+            return {
+                "OrderNo"   : (!sProductionOrder ? "" : sProductionOrder)
             }
         },
 

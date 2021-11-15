@@ -4,7 +4,7 @@ sap.ui.define([
 ], function(Object, JSONModel) {
     'use strict';
     
-    return Object.extend("zmmo071101.model.FragmentModel", {
+    return Object.extend("zmmo071107.model.FragmentModel", {
         _oData : {
             activeFragment : ""
         },

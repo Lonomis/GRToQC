@@ -5,7 +5,7 @@
  */
 sap.ui.define(["sap/ui/core/Control"], function(C) {
     "use strict";
-    var B = C.extend("zmmo071303.control.BarcodeScannerContainer", {
+    var B = C.extend("zmmo071107.control.BarcodeScannerContainer", {
         metadata: {
             properties: {
                 "prefixId": "string"

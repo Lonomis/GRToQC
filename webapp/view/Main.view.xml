@@ -1,14 +1,55 @@
 <mvc:View
     controllerName="zmmo071107.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
     displayBlock="true"
     xmlns="sap.m"
 >
 	<Shell id="shell">
 		<App id="app">
 			<pages>
-				<Page id="page" title="{i18n>title}">
-					<content />
+				<Page id="page" title="{i18n>title}"
+                      showNavButton="{=${fragment>/activeFragment} === 'Init107'
+                                    ||${fragment>/activeFragment} === 'ComponentList107'}"
+                      navButtonPress="onBack"  >
+					<content>
+						<VBox	id="contentVBox"/>
+						<l:VerticalLayout	id="messageStripArea"
+											class="sapUiContentPadding"
+											width="100%"/>
+					</content>
+					<footer>
+						<OverflowToolbar>
+							<content>
+								<Button
+									id="messagePopOverButton"
+									icon="sap-icon://message-popup"
+									type="Emphasized"
+									text="{=${messages>/}.length}"
+									visible="{=!!${messages>/}.length}"
+									press="onMessagePopover"/>
+								<ToolbarSpacer/>
+                                <Button
+                                    text="{i18n>goToScannedComponent}"
+                                    visible="{=!!${input>/ComponentList}.length
+                                            &amp;&amp;${fragment>/activeFragment} === 'Init107'}"
+                                    press="onDisplayScannedComponent"/>
+                                <Button
+                                    text="{i18n>cancel}"
+                                    visible="{=${fragment>/activeFragment} === 'Init107'}"
+                                    press="onClear107"/>
+                                <Button
+                                    text="{i18n>nextItem}"
+                                    visible="{=${fragment>/activeFragment} === 'Init107'}"
+                                    press="onNextItem"/>
+                                <Button
+                                    text="{i18n>save}"
+                                    type="Accept"
+                                    visible="{=${fragment>/activeFragment} === 'ComponentList107'}"
+                                    press="onSave107"/>
+							</content>
+						</OverflowToolbar>
+					</footer>
 				</Page>
 			</pages>
 		</App>

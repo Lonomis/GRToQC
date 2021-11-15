@@ -6,7 +6,7 @@ sap.ui.define([
 ], function(Object, Filter, FilterOperator, BusyIndicator) {
     'use strict';
     
-    return Object.extend("zmmo071101.slocDialog.SlocDialog", {
+    return Object.extend("zmmo071107.slocDialog.SlocDialog", {
         constructor: function(oInputModel, oSlocModel){
             this._inputModel    =   oInputModel;
             this._slocModel     =   oSlocModel;
@@ -14,10 +14,15 @@ sap.ui.define([
 
         openDialog: async function(oView) {
             var oInputData  =   this._inputModel.getData();
+            var oResult     =   {};
 
             try {
                 BusyIndicator.show(0);
-                var oResult = await this._slocModel.buildSlocList("QC", oInputData.Plant);
+                if (oInputData.Reject){
+                    oResult = await this._slocModel.buildSlocList("REJECT", oInputData.Plant);
+                } else {
+                    oResult = await this._slocModel.buildSlocPCFList(oInputData.ProductionOrder);
+                }
                 BusyIndicator.hide();
             } catch (oError) {
                 BusyIndicator.hide();
@@ -34,7 +39,7 @@ sap.ui.define([
         buildDialog : function(oView) {
             if (!this._SlocSearchDialog) {
                 this._SlocSearchDialog = sap.ui.xmlfragment(
-                    "zmmo071101.fragment.SlocDialog",
+                    "zmmo071107.fragment.SlocDialog",
                     this
                 );
 

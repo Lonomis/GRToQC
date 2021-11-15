@@ -14,24 +14,20 @@
         }">
         <columns>
             <Column>
-                <Text   text="{i18n>componentList.ItemNo}"/>
+                <Text   text="{i18n>componentList.Count}"/>
             </Column>
             <Column>
                 <Text   text="{i18n>componentList.Item}"/>
             </Column>
-            <Column>
-                <Text   text="{i18n>componentList.Count}"/>
-            </Column>
-            <Column>
+            <Column width="auto">
                 <Text   text="{i18n>componentList.Status}"/>
             </Column>
         </columns>
         <items>
             <ColumnListItem>
                 <cells>
-                    <Text   text="{input>ItemNo}"/>
-                    <Text   text="{input>Item}"/>
                     <Text   text="{input>Count}"/>
+                    <Text   text="{input>Material}"/>
                     <ObjectStatus   
                             text="{= ${input>RejectStatus} ? ${i18n>reject} : ${i18n>pass}}"
                             state="{= ${input>RejectStatus} ? 'Error' : 'Success'}" />

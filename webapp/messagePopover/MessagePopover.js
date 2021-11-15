@@ -7,7 +7,7 @@ sap.ui.define([
 ], function(Object, MessagePopover, MessageItem, Core, Message) {
     'use strict';
     
-    return Object.extend("zmmo071101.messagePopover.MessagePopover", {
+    return Object.extend("zmmo071107.messagePopover.MessagePopover", {
         _MessageManager     :   {},
         _MessagePopover     :   null,
         _MessageModelName   :   "messages",

@@ -8,7 +8,7 @@
 
 sap.ui.loader.config({
     shim: {
-        'zmmo071303/lib/ZXing': {
+        'zmmo071107/lib/ZXing': {
             amd: true,
             exports: 'ZXing'
         }
@@ -23,14 +23,14 @@ sap.ui.define([
     'sap/m/Button', 
     'sap/m/Dialog', 
     "sap/ui/dom/includeStylesheet", 
-    "zmmo071303/control/BarcodeScannerContainer"], 
+    "zmmo071107/control/BarcodeScannerContainer"], 
     function(L, J, R, I, a, B, D, b, c) {
     "use strict";
     document.addEventListener("settingsDone", x);
     document.addEventListener("SettingCompleted", x);
     document.addEventListener("mockSettingsDone", x);
     b({
-        url: sap.ui.require.toUrl("zmmo071303/css/barcodeStyle.css")
+        url: sap.ui.require.toUrl("zmmo071107/css/barcodeStyle.css")
     });
     var d = {}, C, z, Z, s = new J({
         available: false
@@ -63,7 +63,7 @@ sap.ui.define([
         }
     }
     function u() {
-        Z = sap.ui.requireSync("zmmo071303/lib/ZXing");
+        Z = sap.ui.requireSync("zmmo071107/lib/ZXing");
         if (Z) {
             z = new Z.BrowserMultiFormatReader();
             if (z) {
@@ -157,6 +157,11 @@ sap.ui.define([
             text: "{i18n>BARCODE_DIALOG_CANCEL}",
             press: function() {
                 d.closeScanDialog();
+                if (typeof o.onFail === "function") {
+                    o.onFail({
+                        cancelled: true
+                    });
+                }
             }
         }));
         S.setBusy(false);

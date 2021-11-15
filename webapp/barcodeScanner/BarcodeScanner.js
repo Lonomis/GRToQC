@@ -1,10 +1,10 @@
 sap.ui.define([
     'sap/ui/base/Object',
-    'zmmo071303/control/BarcodeScannerControl'
+    'zmmo071107/control/BarcodeScannerControl'
 ], function(Object, BarcodeScannerControl) {
     'use strict';
     
-    return Object.extend("zmmo071303.barcodeScanner.BarcodeScanner", {
+    return Object.extend("zmmo071107.barcodeScanner.BarcodeScanner", {
         _sDialogTitle           :   "Enter Barcode Manually",
         SuccessStatus           :   "Success",
         ErrorStatus             :   "Error",
@@ -19,19 +19,55 @@ sap.ui.define([
             oView.setModel(BarcodeScannerControl.getStatusModel(), this._StatusModelName);
         },
         
-        scan : function(){
+        scanOrder : function(oInputModel){
             var that  = this;
+            oInputModel.clearOrderDataQC();
 
             return new Promise(function(resolve, reject){
                 BarcodeScannerControl.scan(
                     //Scan Successfully
                     function(oResult) {
                         if (oResult.text){
+                            oInputModel.setOrderFromBarcode(oResult.text);
+
                             resolve({
-                                status  :   that.SuccessStatus,
-                                details :   {
-                                    ProductionOrder     :   (oResult.text.length >= 12 ? oResult.text.substring(4,16) : oResult.text)
-                                }
+                                status  :   that.SuccessStatus
+                            });
+                        } else {
+                            resolve({
+                                status  :   that.CancelStatus
+                            })
+                        }
+                    }, 
+                    //Scan Failure
+                    function(sError) {
+                        reject({
+                            status  :   that.ErrorStatus,
+                            details :   sError
+                        });
+                    }, 
+                    //Live Update
+                    function(oParams) {
+                        //Do Nothing
+                    },
+                    that._sDialogTitle
+                );
+            });
+        },
+
+        scanSloc : function(oInputModel){
+            var that  = this;
+            oInputModel.clearSlocData();
+            
+            return new Promise(function(resolve, reject){
+                BarcodeScannerControl.scan(
+                    //Scan Successfully
+                    function(oResult) {
+                        if (oResult.text){
+                            oInputModel.setSlocFromBarcode(oResult.text);
+
+                            resolve({
+                                status  :   that.SuccessStatus
                             });
                         } else {
                             resolve({

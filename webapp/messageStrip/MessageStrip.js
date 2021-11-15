@@ -4,7 +4,7 @@ sap.ui.define([
 ], function(Object, MessageStrip) {
     'use strict';
     
-    return Object.extend("zmmo071101.messageStrip.MessageStrip", {
+    return Object.extend("zmmo071107.messageStrip.MessageStrip", {
         _messageStripArea   :   {},
 
         constructor : function(oArea){

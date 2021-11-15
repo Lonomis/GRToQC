@@ -5,20 +5,20 @@ sap.ui.define([
     
     return {
         _ResourceBundle:    new ResourceModel({
-            bundleName:         "zmmo071101.i18n.i18n",
+            bundleName:         "zmmo071107.i18n.i18n",
             supportedLocales:   [""],
             fallbackLocales:    ""
         }).getResourceBundle(),
         
-        formatStandardPacking : function(aStdPacking, aComponentList){
+        formatMaximumQty : function(aComponentList, iMaximumQty){
             var oResourceBundle     =   new ResourceModel({
-                bundleName:         "zmmo071101.i18n.i18n",
+                bundleName:         "zmmo071107.i18n.i18n",
                 supportedLocales:   [""],
                 fallbackLocales:    ""  
             }).getResourceBundle();
 
-            return oResourceBundle.getText("stdPackingComponent", 
-                                            [aStdPacking.length, aComponentList.length]);
+            return oResourceBundle.getText("maximumQty", 
+                                            [parseFloat(aComponentList.length).toFixed(3), iMaximumQty]);
         }
     }
 });
