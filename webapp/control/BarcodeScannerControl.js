@@ -5,9 +5,6 @@
  */
 
 //******** This control is copied from sap/ndc/BarcodeScanner of SAPUI5 Version 1.93.0 **********
-
-jquery.sap.registerModulePath('')
-
 sap.ui.loader.config({
     shim: {
         'zmmo071107/lib/ZXing': {
