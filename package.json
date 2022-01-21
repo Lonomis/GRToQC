@@ -31,7 +31,11 @@
     },
     "ui5": {
         "dependencies": [
-            "@sap/ux-ui5-tooling"
+            "@sap/ux-ui5-tooling",
+            "@zxing/library"
         ]
+    },
+    "dependencies": {
+        "@zxing/library": "^0.18.6"
     }
 }
