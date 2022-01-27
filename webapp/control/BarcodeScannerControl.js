@@ -68,7 +68,9 @@ sap.ui.define([
             const formats = [Z.BarcodeFormat.PDF_417];
 
             hints.set(Z.DecodeHintType.POSSIBLE_FORMATS, formats);
-            z = new Z.BrowserMultiFormatReader( hints, 1500 );
+            z = new Z.BrowserMultiFormatReader( hints, 0 );
+            z._timeBetweenDecodingAttempts = 1500;
+
             if (z) {
                 L.debug("ZXing BrowserMultiFormatReader API is available!");
             } else {
@@ -378,6 +380,8 @@ sap.ui.define([
                     i(N);
                 }
                 r = true;
+            },{
+                formats: "PDF_417"
             });
         } else {
             E(e, i, K, M);
