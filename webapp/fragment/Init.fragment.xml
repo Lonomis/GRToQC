@@ -35,7 +35,7 @@
                                     submit="onGetMainOrderData"
                                     required="true">
                                 <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                    <l:GridData span="L4 M4 S8"/>
                                 </layoutData>
                                 <customData>
                                     <core:CustomData key="required"
@@ -54,7 +54,7 @@
                                     icon="sap-icon://bar-code"
                                     press="onScanMainOrder">
                                 <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                    <l:GridData span="L4 M4 S4"/>
                                 </layoutData>
                             </Button>
                         </f:fields>

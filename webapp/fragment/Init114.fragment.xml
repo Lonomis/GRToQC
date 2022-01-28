@@ -31,7 +31,7 @@
                         <f:fields>
                             <Text   text="{input>/ProductionOrder}">
                                 <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                    <l:GridData span="L4 M4 S8"/>
                                 </layoutData>
                             </Text>
                         </f:fields>
@@ -44,7 +44,7 @@
                         <f:fields>
                             <Text  text="{input>/OrderType}">
                                 <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                    <l:GridData span="L4 M4 S8"/>
                                 </layoutData>
                             </Text>
                         </f:fields>
@@ -98,7 +98,7 @@
                                     required="true"
                                     valueHelpRequest="onSlocSearchQC">
                                 <layoutData>
-                                    <l:GridData span="XL2 L2 M2 S6"/>
+                                    <l:GridData span="L3 M3 S6"/>
                                 </layoutData>
                                 <customData>
                                     <core:CustomData    key="required"
@@ -120,7 +120,7 @@
                                     icon="sap-icon://bar-code"
                                     visible="{= ${barcode>/available}}">
                                 <layoutData>
-                                    <l:GridData span="XL1 L1 M1 S3"/>
+                                    <l:GridData span="L2 M2 S3"/>
                                 </layoutData>
                             </Button>
                         </f:fields>
