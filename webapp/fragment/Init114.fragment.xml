@@ -29,36 +29,11 @@
                                     design="Bold"/>
                         </f:label>
                         <f:fields>
-                            <Input  value="{input>/ProductionOrder}" 
-                                    maxLength="12"
-                                    submit="onGetMainOrderData"
-                                    required="true">
+                            <Text   text="{input>/ProductionOrder}">
                                 <layoutData>
                                     <l:GridData span="L4 M4 S8"/>
                                 </layoutData>
-                                <customData>
-                                    <core:CustomData key="required"
-                                                     value="true"
-                                                     writeToDom="true"/>
-                                    <core:CustomData key="name"
-                                                     value="{i18n>productionOrder}"
-                                                     writeToDom="true"/>
-                                    <core:CustomData key="input"
-                                                     value="true"
-                                                     writeToDom="true"/>
-                                </customData>
-                            </Input>
-                        </f:fields>
-                    </f:FormElement>
-                    <f:FormElement >
-                        <f:fields>
-                            <Button text="{i18n>scanProdOrder}"
-                                    icon="sap-icon://bar-code"
-                                    press="onScanMainOrder">
-                                <layoutData>
-                                    <l:GridData span="L4 M4 S8"/>
-                                </layoutData>
-                            </Button>
+                            </Text>
                         </f:fields>
                     </f:FormElement>
                     <f:FormElement >

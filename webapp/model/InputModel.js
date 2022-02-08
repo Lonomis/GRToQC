@@ -147,6 +147,18 @@ sap.ui.define([
             this.setData(oInputData);
         },
 
+       setSubOrderData : function(oResultData){
+            var oInputData = this.getData();
+
+            oInputData.ProductionOrder          =   oResultData.OrderNo;
+            oInputData.Material			        =	oResultData.Material;
+            oInputData.MaterialName             =   oResultData.MaterialName;
+            oInputData.WBS				        =	oResultData.WBS;
+            oInputData.StorageLocation	        =	(!oInputData.StorageLocation? oResultData.StorageLocation: oInputData.StorageLocation);
+       
+            this.setData(oInputData);
+        },
+
         toggleReject: function() {
             var oInputData = this.getData();
 

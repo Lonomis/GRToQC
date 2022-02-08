@@ -163,9 +163,26 @@ sap.ui.define([
                 }
             },
 
+            onScanOrder: async function(){
+                MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
+                try{
+                    BusyIndicator.show(0);
+                    await this.BarcodeScanner.scanOrder(this.InputModel);
+                    await this.OrderModel.getSubOrderData(this.InputModel);
+                    BusyIndicator.hide();
+                } catch(oError){
+                    BusyIndicator.hide();
+                }
+            },
+
             onGetMainOrderData: async function(){
                 MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
                 MainControllerHelper.getMainOrderData(this.OrderModel, this.InputModel, this.ScreenManager);
+            },
+
+            onGetSubOrderData: async function(){
+                MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
+                MainControllerHelper.getSubOrderData(this.OrderModel, this.InputModel);
             },
 
             onSubmitCount: function(){
