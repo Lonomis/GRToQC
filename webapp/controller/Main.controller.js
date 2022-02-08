@@ -130,7 +130,7 @@ sap.ui.define([
                     MainControllerHelper.validateRequiredFields(this.MessagePopover);
                     
                     MainControllerHelper.validateOrder(this.InputModel, this.MessagePopover);
-                    await MainControllerHelper.getSubOrderData(this.OrderModel, this.InputModel);
+                    await MainControllerHelper.getOrder107(this.OrderModel, this.InputModel);
 
                     MainControllerHelper.validateOrder(this.InputModel, this.MessagePopover);
                     MainControllerHelper.validateCountField(this.MessagePopover);
@@ -163,12 +163,12 @@ sap.ui.define([
                 }
             },
 
-            onScanOrder: async function(){
+            onScanOrder107: async function(){
                 MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
                 try{
                     BusyIndicator.show(0);
                     await this.BarcodeScanner.scanOrder(this.InputModel);
-                    await this.OrderModel.getSubOrderData(this.InputModel);
+                    await this.OrderModel.getOrder107(this.InputModel);
                     BusyIndicator.hide();
                 } catch(oError){
                     BusyIndicator.hide();
@@ -180,9 +180,9 @@ sap.ui.define([
                 MainControllerHelper.getMainOrderData(this.OrderModel, this.InputModel, this.ScreenManager);
             },
 
-            onGetSubOrderData: async function(){
+            onGetOrder107: async function(){
                 MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
-                MainControllerHelper.getSubOrderData(this.OrderModel, this.InputModel);
+                MainControllerHelper.getOrder107(this.OrderModel, this.InputModel);
             },
 
             onSubmitCount: function(){

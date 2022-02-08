@@ -55,20 +55,22 @@ sap.ui.define([
             }
         },
 
-        getSubOrderData: function(oInputModel){
+        getOrder107: function(oInputModel){
             var that = this;
-            var oParameters = this.buildGetOrderParameter(oInputModel);
+            var oParameters = this.buildGetOrder107Parameter(oInputModel);
+
+            oInputModel.clearOrderData107();
 
             return new Promise(function(resolve, reject){
-                that._OrderModel.callFunction("/GetOrder", {
+                that._OrderModel.callFunction("/GetOrder107", {
                     method          :   "GET",
                     urlParameters   :   oParameters,
                     success         :   function(oData) {
-                        oInputModel.setSubOrderData(oData.GetOrder);
+                        oInputModel.setOrder107Data(oData.GetOrder107);
 
                         resolve({
                             status  :   that.SuccessStatus,
-                            details :   oData.GetOrder
+                            details :   oData.GetOrder107
                         })
                     },
                     error           :   function(oError) {
@@ -81,7 +83,7 @@ sap.ui.define([
             });
         },
 
-        buildGetOrderParameter: function(oInputModel){
+        buildGetOrder107Parameter: function(oInputModel){
             var oInputData = oInputModel.getData();
 
             return {

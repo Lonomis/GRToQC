@@ -118,6 +118,25 @@ sap.ui.define([
             this.setData(oData);
         },
 
+        clearOrderData107: function(){
+            var oData   =   this.getData();
+
+            oData.OrderType             =   "";
+            oData.Mode                  =   "";
+            oData.Material              =   "";
+            oData.MaterialName          =   "";
+            oData.WBS                   =   "";
+            oData.ProductionVersion     =   "";
+            oData.StorageLocation       =   "";
+            oData.Count                 =   0;
+            oData.Reject                =   false;
+            oData.Barcode               =   "";
+            oData.Quantity              =   0;
+            oData.OrderQuantity         =   0;
+
+            this.setData(oData);
+        },
+
         clearSlocData: function() {
             var oData = this.getData();
 
@@ -147,7 +166,7 @@ sap.ui.define([
             this.setData(oInputData);
         },
 
-       setSubOrderData : function(oResultData){
+       setOrder107Data : function(oResultData){
             var oInputData = this.getData();
 
             oInputData.ProductionOrder          =   oResultData.OrderNo;

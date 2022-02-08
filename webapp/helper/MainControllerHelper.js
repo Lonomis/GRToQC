@@ -16,10 +16,10 @@ sap.ui.define([
             fallbackLocales:    ""
         }).getResourceBundle(),
 
-        getSubOrderData :   async function(oOrderModel, oInputModel) {
+        getOrder107 :   async function(oOrderModel, oInputModel) {
             try {
                 BusyIndicator.show(0);
-                await oOrderModel.getSubOrderData(oInputModel);
+                await oOrderModel.getOrder107(oInputModel);
                 BusyIndicator.hide();
             } catch {
                 BusyIndicator.hide();
