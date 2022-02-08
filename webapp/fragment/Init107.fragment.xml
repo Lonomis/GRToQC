@@ -31,7 +31,7 @@
                         <f:fields>
                             <Input  value="{input>/ProductionOrder}" 
                                     maxLength="12"
-                                    submit="onGetOrderData"
+                                    submit="onGetMainOrderData"
                                     required="true">
                                 <layoutData>
                                     <l:GridData span="L4 M4 S8"/>
@@ -54,7 +54,7 @@
                         <f:fields>
                             <Button text="{i18n>scanProdOrder}"
                                     icon="sap-icon://bar-code"
-                                    press="onScanOrder">
+                                    press="onScanMainOrder">
                                 <layoutData>
                                     <l:GridData span="L4 M4 S8"/>
                                 </layoutData>

@@ -55,43 +55,6 @@ sap.ui.define([
             }
         },
 
-        getSubOrderData: function(oInputModel){
-            var that = this;
-            var oParameters = this.buildGetOrderParameter(oInputModel);
-
-            return new Promise(function(resolve, reject){
-                that._OrderModel.callFunction("/GetOrder", {
-                    method          :   "GET",
-                    urlParameters   :   oParameters,
-                    success         :   function(oData) {
-                        oInputModel.setSubOrderData(oData.GetOrder);
-
-                        resolve({
-                            status  :   that.SuccessStatus,
-                            details :   oData.GetOrder
-                        })
-                    },
-                    error           :   function(oError) {
-                        reject({
-                            status  :   that.ErrorStatus,
-                            details :   oError
-                        })
-                    } 
-                })
-            });
-        },
-
-        buildGetOrderParameter: function(oInputModel){
-            var oInputData = oInputModel.getData();
-
-            return {
-                "OrderNo"               :   ( !oInputData.ProductionOrder ? "" : oInputData.ProductionOrder),
-                "RackNo"                :   "00",
-                "TransportationType"    :   "0",
-                "Flag"                  :   "X"
-            }
-        },
-
         getComponentData: function(oInputModel){
             var that = this;
             var oParameters = this.buildGetMaterialNameParameter(oInputModel);
