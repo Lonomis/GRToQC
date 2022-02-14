@@ -276,6 +276,17 @@ sap.ui.define([
 		    } else {
 			    return aMessages.join(". ") + ".";
 		    }
+        },
+
+        getVendorData: async function(oOrderModel, oInputModel) {
+            oInputModel.clearVendorData();
+            try {
+                    BusyIndicator.show(0);
+                    await oOrderModel.getVendorData(oInputModel);               
+                    BusyIndicator.hide(0);
+                } catch (oError) {
+                    BusyIndicator.hide(0);
+                }
         }
         
     });

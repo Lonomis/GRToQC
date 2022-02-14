@@ -163,21 +163,23 @@ sap.ui.define([
                 Plant               :   oData.Plant,
                 RackId              :   oData.RackID,
                 StorageLocation     :   oData.MainStorageLocation,
-                ToGRItemsFence      :   this.appendToGRItemsFence(oData.ComponentList)
+                ToGRItemsFence      :   this.appendToGRItemsFence(oData)
             }
         },
 
-        appendToGRItemsFence: function(aComponentList){
+        appendToGRItemsFence: function(oData){
             var aToGRItemsFence    =   [];
 
-            aComponentList.forEach(function(oComponent){
+            oData.ComponentList.forEach(function(oComponent){
                 aToGRItemsFence.push({
                     TransactionId   :   "1",
                     Item            :   oComponent.Material,
                     StorageLocation :   oComponent.StorageLocation,
                     Reject          :   ( oComponent.RejectStatus ? "X" : "" ),
                     Count           :   oComponent.Count.toString(),
-                    Barcode         :   ( oComponent.Barcode ? oComponent.Barcode : "" )
+                    Barcode         :   ( oComponent.Barcode ? oComponent.Barcode : "" ),
+                    Vendor          :   ( oData.Vendor ? oData.Vendor : "" ),
+                    VendorName      :   ( oData.VendorName ? oData.VendorName : "" )
                 });
             });
 
@@ -224,7 +226,9 @@ sap.ui.define([
                 StorageLocation     :   oData.StorageLocation,
                 Quantity            :   oData.Quantity,
                 OrderQuantity       :   oData.OrderQuantity,
-                Barcode             :   oData.Barcode
+                Barcode             :   oData.Barcode,
+                Vendor              :   oData.Vendor,
+                VendorName          :   oData.VendorName
             }
         },
 
@@ -255,6 +259,44 @@ sap.ui.define([
 
         getPostErrorMessage: function() {
             return this._ResourceBundle.getText("post.Error");
+        },
+
+        getStandardPackingData: function(oInputModel) {
+            var that = this;
+            var oParameters =   this.buildGetStdPackingParameter(oInputModel);
+
+            return new Promise(function(resolve, reject){
+               that._OrderModel.callFunction("/GetStandardPacking", {
+                    method          :   "GET",
+                    urlParameters   :   oParameters,
+                    success         :   function(oData){
+                        oInputModel.setStandardPacking(oData.results);
+
+                        resolve({
+                            status  :   that.SuccessStatus,
+                            details :   oData.results
+                        })
+                    },
+                    error           :   function(oError){
+                        reject({
+                            status  :   that.ErrorStatus,
+                            details :   oError
+                        })
+                    }
+               })
+            });
+        },
+        
+        buildGetStdPackingParameter: function(oInputModel) {
+            var oInputData = oInputModel.getData();
+
+            return {
+                "Material"              :   (!oInputData.Material? "" : oInputData.Material),
+                "OrderNo"               :   (!oInputData.ProductionOrder? "" : oInputData.ProductionOrder),
+                "RackId"                :   (!oInputData.RackID? "" : oInputData.RackID),
+                "RackNo"                :   (!oInputData.RackNo? "" : oInputData.RackNo),
+                "TransportationType"    :   (!oInputData.TransportationType? "": oInputData.TransportationType)
+            };
         },
 
         getVendorData: async function(oInputModel) {
@@ -297,41 +339,38 @@ sap.ui.define([
             }
         },
 
-        getStandardPackingData: function(oInputModel) {
+        getVendorComponent: function(oInputModel){
             var that = this;
-            var oParameters =   this.buildGetStdPackingParameter(oInputModel);
+            var oParameters = this.buildGetVendorComponentParameter(oInputModel);
 
             return new Promise(function(resolve, reject){
-               that._OrderModel.callFunction("/GetStandardPacking", {
+                that._OrderModel.callFunction("/GetVendorFromComponent", {
                     method          :   "GET",
                     urlParameters   :   oParameters,
-                    success         :   function(oData){
-                        oInputModel.setStandardPacking(oData.results);
+                    success         :   function(oData) {
+                        oInputModel.setVendorFromComponent(oData.GetVendorFromComponent);
 
                         resolve({
                             status  :   that.SuccessStatus,
-                            details :   oData.results
+                            details :   oData.GetVendorFromComponent
                         })
                     },
-                    error           :   function(oError){
+                    error           :   function(oError) {
                         reject({
                             status  :   that.ErrorStatus,
                             details :   oError
                         })
-                    }
-               })
+                    } 
+                })
             });
         },
-        
-        buildGetStdPackingParameter: function(oInputModel) {
+
+        buildGetVendorComponentParameter: function(oInputModel) {
             var oInputData = oInputModel.getData();
 
             return {
-                "Material"              :   (!oInputData.Material? "" : oInputData.Material),
                 "OrderNo"               :   (!oInputData.ProductionOrder? "" : oInputData.ProductionOrder),
-                "RackId"                :   (!oInputData.RackID? "" : oInputData.RackID),
-                "RackNo"                :   (!oInputData.RackNo? "" : oInputData.RackNo),
-                "TransportationType"    :   (!oInputData.TransportationType? "": oInputData.TransportationType)
+                "Material"              :   (!oInputData.Material? "" : oInputData.Material)
             };
         }
     });

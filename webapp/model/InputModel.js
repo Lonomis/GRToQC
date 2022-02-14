@@ -33,6 +33,8 @@ sap.ui.define([
                 MaximumQty              :   0,
                 Quantity                :   0,
                 OrderQuantity           :   0,
+                Vendor                  :   "",
+                VendorName              :   "",
                 ComponentList           :   []
             }
         },
@@ -43,7 +45,10 @@ sap.ui.define([
                 Material                :   "",
                 Plant                   :   "",
                 StorageLocation         :   "",
-                Reject                  :   false
+                Reject                  :   false,
+                Barcode                 :   "",
+                Vendor                  :   "",
+                VendorName              :   ""
             }
         },
 
@@ -79,6 +84,8 @@ sap.ui.define([
             oData.ComponentList             =   oInputdata.ComponentList;
             oData.Quantity                  =   oInputdata.Quantity;
             oData.OrderQuantity             =   oInputdata.OrderQuantity;
+            oData.Vendor                    =   oInputdata.Vendor;
+            oData.VendorName                =   oInputdata.VendorName;
 
             this._oModel.setData(oData);
         },
@@ -114,6 +121,8 @@ sap.ui.define([
             oData.Barcode               =   "";
             oData.Quantity              =   0;
             oData.OrderQuantity         =   0;
+            oData.Vendor                =   "";
+            oData.VendorName            =   "";
 
             this.setData(oData);
         },
@@ -133,6 +142,8 @@ sap.ui.define([
             oData.Barcode               =   "";
             oData.Quantity              =   0;
             oData.OrderQuantity         =   0;
+            oData.Vendor                =   "";
+            oData.VendorName            =   "";
 
             this.setData(oData);
         },
@@ -205,7 +216,9 @@ sap.ui.define([
                 Plant                   :   oInputData.Plant,
                 StorageLocation         :   oInputData.StorageLocation,
                 Reject                  :   oInputData.Reject,
-                Barcode                 :   oInputData.Barcode         
+                Barcode                 :   oInputData.Barcode,
+                Vendor                  :   oInputData.Vendor,
+                VendorName              :   oInputData.VendorName         
             });
 
             this.setData(oInputData);
@@ -225,6 +238,31 @@ sap.ui.define([
             } else {
                 return false;
             }
+        },
+
+        clearVendorData: function(){
+            var oData   =   this.getData();
+
+            oData.VendorName    =   "";
+
+            this.setData(oData);
+        },
+
+        setVendorData: function(oResult) {
+            var oData = this.getData();
+
+            oData.VendorName    =   oResult.VendorName;
+
+            this.setData(oData);
+        },
+
+        setVendorFromComponent : function(oResultData){
+            var oInputData  =   this.getData();
+            
+            oInputData.Vendor           =   oResultData.Vendor;
+            oInputData.VendorName       =   oResultData.VendorName;
+
+            this.setData(oInputData);
         }
         
     });

@@ -78,6 +78,39 @@
                     </f:FormElement>
                     <f:FormElement>
                         <f:label>
+                            <Label  text="{i18n>vendor}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Input  value="{input>/Vendor}"
+                                    submit="onGetVendorData"
+                                    maxLength="10"
+                                    required="false">
+                                <layoutData>
+                                    <l:GridData span="L4 M4 S12"/>
+                                </layoutData>
+                                <customData>
+                                    <core:CustomData key="required"
+                                                     value="false"
+                                                     writeToDom="false"/>
+                                    <core:CustomData key="name"
+                                                     value="{i18n>vendor}"
+                                                     writeToDom="true"/>
+                                </customData>
+                            </Input>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
+                            <Label  text="{i18n>vendorName}"
+                                    design="Bold"/>
+                        </f:label>
+                        <f:fields>
+                            <Text   text="{input>/VendorName}"/>
+                        </f:fields>
+                    </f:FormElement>
+                    <f:FormElement>
+                        <f:label>
                             <Label  text="{i18n>qty}"
                                     design="Bold"/>
                         </f:label>

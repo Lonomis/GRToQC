@@ -133,6 +133,8 @@ sap.ui.define([
                     MainControllerHelper.validateRejectSloc(this.InputModel, this.MessagePopover);
                     MainControllerHelper.validateCountWithComponent(this.InputModel, this.MessagePopover);
                     MainControllerHelper.validateMaximumQty(this.InputModel, this.MessagePopover);
+
+                    MainControllerHelper.getVendorData(this.OrderModel, this.InputModel);
                     this.InputModel.appendComponent();
                     BusyIndicator.hide();
                 } catch (oError) {
@@ -237,15 +239,27 @@ sap.ui.define([
 
                 try{
                     BusyIndicator.show(0);
+                    MainControllerHelper.validateRequiredFields(this.MessagePopover);
+                    await this.OrderModel.getVendorData(this.InputModel);
                     await this.OrderModel.postGoodsReceiptNCR(this.InputModel, this.MessageStrip);
                     this.InputModel.clearData();
                     this.ScreenManager.loadFragment("Init");
                     BusyIndicator.hide();
                 } catch(oError) {
-                    this.InputModel.clearData();
-                    this.ScreenManager.loadFragment("Init");
+                    if (oError.name !== 'ValidateException') {
+                        if(JSON.parse(oError.details.responseText).error.code !== "ZMM01/027") {
+                            //Vendor not exist
+                            this.InputModel.clearData();
+                            this.ScreenManager.loadFragment("Init"); 
+                        }
+                    }
                     BusyIndicator.hide();
                 }
-            }
+            },
+
+            onGetVendorData: function(oEvent){
+                MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
+                MainControllerHelper.getVendorData(this.OrderModel, this.InputModel);
+            },
 		});
 	});
