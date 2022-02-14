@@ -128,10 +128,6 @@ sap.ui.define([
                 try {
                     BusyIndicator.show(0);
                     MainControllerHelper.validateRequiredFields(this.MessagePopover);
-                    
-                    MainControllerHelper.validateOrder(this.InputModel, this.MessagePopover);
-                    await MainControllerHelper.getOrder107(this.OrderModel, this.InputModel);
-
                     MainControllerHelper.validateOrder(this.InputModel, this.MessagePopover);
                     MainControllerHelper.validateCountField(this.MessagePopover);
                     MainControllerHelper.validateRejectSloc(this.InputModel, this.MessagePopover);
