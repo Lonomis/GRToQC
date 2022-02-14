@@ -20,6 +20,7 @@ sap.ui.define([
             try {
                 BusyIndicator.show(0);
                 await oOrderModel.getOrder107(oInputModel);
+                await oOrderModel.getVendorComponent(oInputModel);
                 BusyIndicator.hide();
             } catch {
                 BusyIndicator.hide();
@@ -30,6 +31,7 @@ sap.ui.define([
             try {
                 BusyIndicator.show(0);
                 await oOrderModel.getMainOrderData(oInputModel);
+                await oOrderModel.getVendorComponent(oInputModel);
                 oScreenManager.openInitScreenPerMode(oInputModel);
                 BusyIndicator.hide();
             } catch {
@@ -276,6 +278,17 @@ sap.ui.define([
 		    } else {
 			    return aMessages.join(". ") + ".";
 		    }
+        },
+
+        getVendorData: async function(oOrderModel, oInputModel) {
+            oInputModel.clearVendorData();
+            try {
+                    BusyIndicator.show(0);
+                    await oOrderModel.getVendorData(oInputModel);               
+                    BusyIndicator.hide(0);
+                } catch (oError) {
+                    BusyIndicator.hide(0);
+                }
         }
         
     });
