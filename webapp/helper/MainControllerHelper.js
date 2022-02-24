@@ -20,6 +20,7 @@ sap.ui.define([
             try {
                 BusyIndicator.show(0);
                 await oOrderModel.getOrder107(oInputModel);
+                await oOrderModel.getVendorComponent(oInputModel);
                 BusyIndicator.hide();
             } catch {
                 BusyIndicator.hide();
@@ -30,6 +31,7 @@ sap.ui.define([
             try {
                 BusyIndicator.show(0);
                 await oOrderModel.getMainOrderData(oInputModel);
+                await oOrderModel.getVendorComponent(oInputModel);
                 oScreenManager.openInitScreenPerMode(oInputModel);
                 BusyIndicator.hide();
             } catch {
