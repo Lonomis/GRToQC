@@ -154,7 +154,6 @@ sap.ui.define([
                     BusyIndicator.show(0);
                     await this.BarcodeScanner.scanOrder(this.InputModel);
                     await this.OrderModel.getMainOrderData(this.InputModel);
-                    await this.OrderModel.getVendorComponent(this.InputModel);
                     this.ScreenManager.openInitScreenPerMode(this.InputModel);
                     BusyIndicator.hide();
                 } catch(oError){
@@ -168,7 +167,6 @@ sap.ui.define([
                     BusyIndicator.show(0);
                     await this.BarcodeScanner.scanOrder(this.InputModel);
                     await this.OrderModel.getOrder107(this.InputModel);
-                    await this.OrderModel.getVendorComponent(this.InputModel);
                     BusyIndicator.hide();
                 } catch(oError){
                     BusyIndicator.hide();
