@@ -260,6 +260,6 @@ sap.ui.define([
             onGetVendorData: function(oEvent){
                 MainControllerHelper.clearMessages(this.MessageStrip, this.MessagePopover, this.InputModel);
                 MainControllerHelper.getVendorData(this.OrderModel, this.InputModel);
-            },
+            }
 		});
 	});

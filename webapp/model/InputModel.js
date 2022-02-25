@@ -251,6 +251,7 @@ sap.ui.define([
         setVendorData: function(oResult) {
             var oData = this.getData();
 
+            oData.Vendor        =   oResult.Vendor;
             oData.VendorName    =   oResult.VendorName;
 
             this.setData(oData);
