@@ -134,7 +134,7 @@ sap.ui.define([
                     MainControllerHelper.validateCountWithComponent(this.InputModel, this.MessagePopover);
                     MainControllerHelper.validateMaximumQty(this.InputModel, this.MessagePopover);
 
-                    MainControllerHelper.getVendorData(this.OrderModel, this.InputModel);
+                    await this.OrderModel.getVendorData(this.InputModel);
                     this.InputModel.appendComponent();
                     BusyIndicator.hide();
                 } catch (oError) {

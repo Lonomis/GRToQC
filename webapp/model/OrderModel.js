@@ -178,8 +178,8 @@ sap.ui.define([
                     Reject          :   ( oComponent.RejectStatus ? "X" : "" ),
                     Count           :   oComponent.Count.toString(),
                     Barcode         :   ( oComponent.Barcode ? oComponent.Barcode : "" ),
-                    Vendor          :   ( oData.Vendor ? oData.Vendor : "" ),
-                    VendorName      :   ( oData.VendorName ? oData.VendorName : "" )
+                    Vendor          :   ( oComponent.Vendor ? oComponent.Vendor : "" ),
+                    VendorName      :   ( oComponent.VendorName ? oComponent.VendorName : "" )
                 });
             });
 
